@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int checkForPalindrome(char * word){
     short length = strcspn(word, "\n");
@@ -16,8 +17,14 @@ int checkForPalindrome(char * word){
 int main(){
     char input[100];
     printf("Word(s) to check: \n");
+    // Ursprünglich hab ich die Überprüfung von der Eingabe vergessen
+    // alt: fgets(input, sizeof(input), stdin);
 
-    fgets(input, sizeof(input), stdin);
+    // neu:
+    if(fgets(input, sizeof(input), stdin)){
+        printf("Error while reading Input \n");
+        return(1);
+    }
 
     short isPalindrome = checkForPalindrome(input);
     input[strcspn(input, "\n")] = 0;
