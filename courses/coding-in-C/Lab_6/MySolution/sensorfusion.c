@@ -53,7 +53,7 @@ int importSensorData(struct Sensor * Sensor){
     }
     return(0);
 }
-generateDetectionInterval(struct Sensor * Sensor, short length){
+int generateDetectionInterval(struct Sensor * Sensor, short length){
     unsigned char numberOfIntervals = 0; //gets updated as more Intervals are Detected
 
     unsigned char lastValue = 0; // value if Index - 1
@@ -105,7 +105,7 @@ int printSingleDetectionIntervals(struct Sensor * Sensor, unsigned char length){
 
     for (short index = 0; index < length - 1; index++)
     {
-        printf(printf("%-3d.Detection from %d seconds to %d seconds. \n", index));
+        printf("%-3d.Detection from %d seconds to %d seconds. \n", index, Sensor->detectionIntervals[index].start, Sensor->detectionIntervals[index].end);
     }
     return(0);
 }
