@@ -5,10 +5,10 @@
 struct SensorData
 {
     double time;
-    double probablity;
+    double probability;
 };
 
-struct detectionInterval
+struct DetectionInterval
 {
     double start;
     double end;
@@ -19,14 +19,38 @@ struct Sensor
 {
     int id;
     double threshold;
-    unsigned char object_detection[3000];
-    struct detectionInterval detectionIntervals[3000];
+    unsigned char objectDetection[3000];
+    struct DetectionInterval detectionIntervals[3000];
     struct SensorData data[3000];
 };
 
-int importSensorData(struct Sensor * Sensor){
+int printDetectionIntervals(struct Sensor *sensor, unsigned char length){
+
+    printf("Detection Intervals of Sensor %d: \n", sensor->id);
+
+    for (short index = 0; index < length; index++)
+    {
+        printf("%1d. Detection from %fs to %fs. \n", index, sensor->data[(int)sensor->detectionIntervals[index].start].time, sensor->data[(int)sensor->detectionIntervals[index].end].time);
+    }
+    return(0);
+}
+
+int printSensorDetections(struct Sensor *sensor, int length){
+    printf("Sensor %d Detections: \n", sensor->id);
+    for (int index = 0; index < length; index++)
+    {
+        if (sensor->objectDetection[index] == 1)
+        {
+            printf("Detection at index %d (time: %f, probability: %f)\n", index, sensor->data[index].time, sensor->data[index].probability);
+        }
+    }
+    return(0);
+}
+
+
+int importSensorData(struct Sensor *sensor){
     FILE *sensorData;
-    if (Sensor->id == 1)
+    if (sensor->id == 1)
     {
         sensorData = fopen("sensor1.txt", "r");
     }
@@ -34,7 +58,7 @@ int importSensorData(struct Sensor * Sensor){
         sensorData = fopen("sensor2.txt", "r");
     }
     if(sensorData == NULL){
-        printf("An error occured when trying to read file.");
+        printf("An error occurred when trying to read file.");
         return(1);
     }
     char line[100];
@@ -43,89 +67,70 @@ int importSensorData(struct Sensor * Sensor){
     while (fgets(line,sizeof(line), sensorData) != NULL)
     {
         char *rest;
-        char *ptime = strtok(line, split);
-        char *pvalue = strtok(NULL, split);
-        double time = strtod(ptime, &rest);
-        double probability = strtod(pvalue, &rest);
-        Sensor->data[currentLine].time = time;
-        Sensor->data[currentLine].probablity = probability;
+        char *pTime = strtok(line, split);
+        char *pValue = strtok(NULL, split);
+        double time = strtod(pTime, &rest);
+        double probability = strtod(pValue, &rest);
+        sensor->data[currentLine].time = time;
+        sensor->data[currentLine].probability = probability;
         currentLine ++;
     }
+    fclose(sensorData);
     return(0);
 }
-int generateDetectionInterval(struct Sensor * Sensor, short length){ // returns the amount of detected intervals
+int generateDetectionInterval(struct Sensor *sensor, short length){ // returns the amount of detected intervals
     short numberOfIntervals = 0; //gets updated as more Intervals are Detected
 
     unsigned short lastValue = 0; // value of Index - 1
-    unsigned short trailingIndex = 0; // first Index of an detection interval
-    for (short Index = 0; Index < length -1; Index++)
+    unsigned short trailingIndex = 0; // first Index of a detection interval
+    for (short index = 0; index < length -1; index++)
     {
-        if(lastValue == 0 && Sensor->object_detection[Index] == 1){
-            trailingIndex = Index;
+        if(lastValue == 0 && sensor->objectDetection[index] == 1){
+            trailingIndex = index;
         }
-        else if (lastValue == 1 && Sensor->object_detection[Index] == 0)
+        else if (lastValue == 1 && sensor->objectDetection[index] == 0)
         {
-            Sensor->detectionIntervals[numberOfIntervals].start = trailingIndex;
-            Sensor->detectionIntervals[numberOfIntervals].end = Index-1;
+            sensor->detectionIntervals[numberOfIntervals].start = trailingIndex;
+            sensor->detectionIntervals[numberOfIntervals].end = index-1;
             numberOfIntervals++;
         }
 
-        lastValue = Sensor->object_detection[Index];
+        lastValue = sensor->objectDetection[index];
     }
-    if(Sensor->object_detection[length - 1] == 1){ // Edgecase: Detections ends with an interval
-        Sensor->detectionIntervals[numberOfIntervals].start = trailingIndex;
-        Sensor->detectionIntervals[numberOfIntervals].end = length - 1;
+    if(sensor->objectDetection[length - 1] == 1){ // Edge case: detection ends with an interval
+        sensor->detectionIntervals[numberOfIntervals].start = trailingIndex;
+        sensor->detectionIntervals[numberOfIntervals].end = length - 1;
         numberOfIntervals++;
     }
     return numberOfIntervals;
 }
-int generateDetectionSignal(struct Sensor * Sensor){
-    int length = sizeof(Sensor->data) / sizeof(Sensor->data[0]);
-    for (int Index = 0; Index < length; Index++)
+int generateDetectionSignal(struct Sensor *sensor){
+    int length = sizeof(sensor->data) / sizeof(sensor->data[0]);
+    for (int index = 0; index < length; index++)
     {
-        if(Sensor->data[Index].probablity >= Sensor->threshold){
-            Sensor->object_detection[Index] = 1;
+        if(sensor->data[index].probability >= sensor->threshold){
+            sensor->objectDetection[index] = 1;
         }
         else
         {
-            Sensor->object_detection[Index] = 0;
+            sensor->objectDetection[index] = 0;
         }
         
     }
     return(0);
 }
-struct Sensor sensorFusion(struct Sensor * Sensor1, struct Sensor * Sensor2, short length){
-    struct Sensor temp;
+struct Sensor sensorFusion(struct Sensor *sensor1, struct Sensor *sensor2, short length){
+    struct Sensor fusedSensor;
     for (short index = 0; index < length; index++)
     {
-        temp.object_detection[index] = Sensor1->object_detection[index] & Sensor2->object_detection[index];
+        fusedSensor.objectDetection[index] = sensor1->objectDetection[index] & sensor2->objectDetection[index];
+        fusedSensor.data[index].time = sensor1->data[index].time;
+        fusedSensor.data[index].probability = sensor1->objectDetection[index] & sensor2->objectDetection[index];
     }
-    generateDetectionInterval(&temp, length);
-    return(temp);
+    short intervals = generateDetectionInterval(&fusedSensor, length);
+    return(fusedSensor);
 }
 
-int printSingleDetectionIntervals(struct Sensor * Sensor, unsigned char length){
-
-    printf("Detection Intervals of Sensor %d: \n", Sensor->id);
-
-    for (short index = 0; index < length; index++)
-    {
-        printf("%1d. Detection from %fs to %fs. \n", index, Sensor->data[(int)Sensor->detectionIntervals[index].start].time, Sensor->data[(int)Sensor->detectionIntervals[index].end].time);
-    }
-    return(0);
-}
-
-int printSensorDetections(struct Sensor * Sensor, int length){
-    printf("Sensor %d Detections: \n", Sensor->id);
-    for (int index = 0; index < length; index++)
-    {
-        if (Sensor->object_detection[index] == 1)
-        {
-            printf("Detection at index %d (time: %f, probability: %f)\n", index, Sensor->data[index].time, Sensor->data[index].probablity);
-        }
-    }
-    return(0);
-}
 
 
 int main(){
@@ -136,7 +141,7 @@ int main(){
 
     generateDetectionSignal(&sensor1);
     short intervals1 = generateDetectionInterval(&sensor1, 3000);
-    printSingleDetectionIntervals(&sensor1, intervals1);
+    printDetectionIntervals(&sensor1, intervals1);
 
     struct Sensor sensor2;
     sensor2.id = 2;
@@ -145,5 +150,9 @@ int main(){
 
     generateDetectionSignal(&sensor2);
     short intervals2 = generateDetectionInterval(&sensor2, 3000);
-    printSingleDetectionIntervals(&sensor2, intervals2);
+    printDetectionIntervals(&sensor2, intervals2);
+
+    struct Sensor fusedSensor = sensorFusion(&sensor1, &sensor2, 3000);
+    fusedSensor.id = 3;
+    printDetectionIntervals(&fusedSensor, intervals2);
 }
