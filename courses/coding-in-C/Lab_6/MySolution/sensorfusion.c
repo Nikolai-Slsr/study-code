@@ -94,6 +94,16 @@ int generateDetectionSignal(struct Sensor * Sensor){
     }
     return(0);
 }
+struct Sensor sensorFusion(struct Sensor * Sensor1, struct Sensor * Sensor2, short length){
+    struct Sensor temp;
+    for (short index = 0; index < length; index++)
+    {
+        temp.object_detection[index] = Sensor1->object_detection[index] & Sensor2->object_detection[index];
+    }
+    generateDetectionInterval(&temp, length);
+    return(temp);
+}
+
 int printSingleDetectionIntervals(struct Sensor * Sensor, unsigned char length){
 
     printf("Detection Intervals of Sensor %d: \n", Sensor->id);
