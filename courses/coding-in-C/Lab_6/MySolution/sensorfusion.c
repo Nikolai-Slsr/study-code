@@ -19,9 +19,9 @@ struct Sensor
 {
     int id;
     double threshold;
-    unsigned char object_detection[6000];
+    unsigned char object_detection[3000];
     struct detectionInterval detectionIntervals[3000];
-    struct SensorData data[6000];
+    struct SensorData data[3000];
 };
 
 int importSensorData(struct Sensor * Sensor){
@@ -53,13 +53,39 @@ int importSensorData(struct Sensor * Sensor){
     }
     return(0);
 }
-int generateDetectionSignal(struct Sensor * Sensor){
-    if (Sensor->data == NULL)
+generateDetectionInterval(struct Sensor * Sensor, short length){
+    unsigned char numberOfIntervals = 0; //gets updated as more Intervals are Detected
+
+    unsigned char lastValue = 0; // value if Index - 1
+    unsigned char trailingIndex = 0; // first Index of an detection interval
+    for (short Index = 0; Index < length -1; Index++)
     {
-        printf("There is no data to interprete!");
+        if(lastValue == 0 && Sensor->object_detection[Index] == 1){
+            trailingIndex = Index;
+        }
+        else if (lastValue == 1 && Sensor->object_detection[Index] == 0)
+        {
+            Sensor->detectionIntervals[numberOfIntervals].start = trailingIndex;
+            Sensor->detectionIntervals[numberOfIntervals].end = Index-1;
+            numberOfIntervals++;
+        }
+
+        lastValue = Sensor->object_detection[Index];
+    }
+    if(Sensor->object_detection[length - 1] == 1){ // Edgecase: Detections ends with an interval
+        Sensor->detectionIntervals[numberOfIntervals].start = trailingIndex;
+        Sensor->detectionIntervals[numberOfIntervals].end = length;
+        numberOfIntervals++;
+    }
+    return(0);
+}
+int generateDetectionSignal(struct Sensor * Sensor){
+    if (Sensor->data[0].time == 0)
+    {
+        printf("There is no data to interpret!");
         return(1);
     }
-    int length = sizeof(Sensor->data);
+    int length = sizeof(Sensor->data) / sizeof(Sensor->data[0]);
     for (int Index = 0; Index < length; Index++)
     {
         if(Sensor->data[Index].probablity >= Sensor->threshold){
@@ -71,6 +97,17 @@ int generateDetectionSignal(struct Sensor * Sensor){
         }
         
     }
+    return(0);
+}
+int printSingleDetectionIntervals(struct Sensor * Sensor, unsigned char length){
+
+    printf("Detection Intervals of Sensor %d \n", Sensor->id);
+
+    for (short index = 0; index < length - 1; index++)
+    {
+        printf(printf("%-3d.Detection from %d seconds to %d seconds. \n", index));
+    }
+    return(0);
 }
 
 int main(){
