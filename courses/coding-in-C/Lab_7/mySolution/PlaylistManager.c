@@ -15,15 +15,20 @@ struct playlist
 };
 
 
-struct playlist * initPlaylist(){
+struct playlist * initPlaylist(){ //returns NULL if failed, pointer to new playlist if success
     struct playlist *pNewPlaylist = malloc(sizeof *pNewPlaylist);
+    if (pNewPlaylist == NULL) //edge case: if malloc failed
+    {
+        printf("Failed to allocate memory for new playlist\n");
+        return NULL;
+    }
     pNewPlaylist->length = 0;
     pNewPlaylist->firstSong = NULL;
     return pNewPlaylist;
 }
 struct song * addSong(struct playlist * playlist, char artist[], char name[]){ //returns NULL if failed, pointer to new song if success
 
-    if (playlist == NULL)
+    if (playlist == NULL) //edge case: if the playlist is NULL
     {
         printf("Playlist is NULL\n");
         return NULL;
@@ -32,7 +37,7 @@ struct song * addSong(struct playlist * playlist, char artist[], char name[]){ /
     struct song *pCurentSong = playlist->firstSong; 
     struct song *newSong = malloc(sizeof *newSong);
 
-    if (newSong == NULL)
+    if (newSong == NULL) //edge case: if malloc failed
     {
         printf("Failed to allocate memory for new song\n");
         return NULL;
@@ -62,15 +67,20 @@ struct song * addSong(struct playlist * playlist, char artist[], char name[]){ /
     return NULL; //should never reach this point
 }
 
-int printPlaylist(struct playlist *pPlaylist){
-    if (pPlaylist->length == 0)
+int printPlaylist(struct playlist *pPlaylist){ // returns 0 if success, 1 if failed
+    if (pPlaylist == NULL)
+    {
+       return 1;
+    }
+    
+    if (pPlaylist->length == 0) //edge case: if the playlist is empty
     {
         printf("The playlist is empty\n");
         return 1;
     }
     printf("Playlist: \n");
     struct song *pCurentSong = pPlaylist->firstSong;
-    for (short index = 0; index < pPlaylist->length; index++)
+    for (short index = 0; index < pPlaylist->length; index++) //loop through the playlist and print each song
     {
         printf("%d. - %s  by  %s \n",index, pCurentSong->name, pCurentSong->artist);
         pCurentSong = pCurentSong->nextSong;
@@ -80,9 +90,10 @@ int printPlaylist(struct playlist *pPlaylist){
 
 int deleteFirstSong(struct playlist *pPlaylist){ // returns 0 if success, 1 if failed
     //get the second song in the playlist and set it as the first song, then free the memory of the first song
+    // first some edge cases: if the playlist is empty or NULL, if the playlist has only one song
     if (pPlaylist == NULL || pPlaylist->firstSong == NULL)
     {
-        printf("Playlist is empty or NULL\n");
+        // printf("Playlist is empty or NULL\n");
         return 1;
     }
     if (pPlaylist->firstSong->nextSong == NULL)
@@ -93,7 +104,7 @@ int deleteFirstSong(struct playlist *pPlaylist){ // returns 0 if success, 1 if f
         free(deletedSong);
         return 0;
     }
-    
+    //normal case: playlist has more than one song
     struct song *deletedSong = pPlaylist->firstSong;
     struct song *newFirstSong = pPlaylist->firstSong->nextSong;
     pPlaylist->firstSong = newFirstSong;
@@ -101,27 +112,27 @@ int deleteFirstSong(struct playlist *pPlaylist){ // returns 0 if success, 1 if f
     free(deletedSong);
     return 0;
     }
-void deletePlaylist(){
-
+void deletePlaylist(struct playlist **ppPlaylist){
+    if (ppPlaylist == NULL || *ppPlaylist == NULL) return;
+    while (deleteFirstSong(*ppPlaylist) == 0){}
+    free(*ppPlaylist);
+    *ppPlaylist = NULL;
 }
 
 int main(){
     //test current funtions
     struct playlist *myPlaylist = initPlaylist();
     addSong(myPlaylist, "Darci", "On My Own");
-    // addSong(myPlaylist, "Djo", "End of Beginning");
-    // addSong(myPlaylist, "Arctic Monkeys", "I Wanna Be Yours");
-    // addSong(myPlaylist, "Choise Atlantic", "Friends");
-    // addSong(myPlaylist, "Nirvana", "Come As You Are");
-    // addSong(myPlaylist, "Franz Ferdinand", "Take Me Out");
-    // addSong(myPlaylist, "The Rare Occasions", "Notion");
-    // addSong(myPlaylist, "Tame Impala", "The Less I Know The Better");
-    // addSong(myPlaylist, "The Neighbourhood", "Softcore");
+    addSong(myPlaylist, "Djo", "End of Beginning");
+    addSong(myPlaylist, "Arctic Monkeys", "I Wanna Be Yours");
+    addSong(myPlaylist, "Choise Atlantic", "Friends");
+    addSong(myPlaylist, "Nirvana", "Come As You Are");
+    addSong(myPlaylist, "Franz Ferdinand", "Take Me Out");
+    addSong(myPlaylist, "The Rare Occasions", "Notion");
+    addSong(myPlaylist, "Tame Impala", "The Less I Know The Better");
+    addSong(myPlaylist, "The Neighbourhood", "Softcore");
     printPlaylist(myPlaylist);
-    deleteFirstSong(myPlaylist);
-    deleteFirstSong(myPlaylist);
-    deleteFirstSong(myPlaylist);
-    deleteFirstSong(myPlaylist);
+    deletePlaylist(&myPlaylist);
     printPlaylist(myPlaylist);
     return 0;
 
