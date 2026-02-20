@@ -33,11 +33,22 @@ struct song * addSong(struct playlist * playlist, char artist[], char name[]){
         }
         pCurentSong = pCurentSong->nextSong;
     }
+    playlist->length++;
     return newSong;
 }
 
-int printPlaylist(){
-    
+int printPlaylist(struct playlist *pPlaylist){
+    if (pPlaylist->length == 0)
+    {
+        printf("The playlist is empty");
+        return 1;
+    }
+    struct song *pCurentSong = pPlaylist->firstSong;
+    for (short index = 0; index < pPlaylist->length; index++)
+    {
+        printf("Artist: %s, Name: %s", pCurentSong->artist, pCurentSong->name);
+        pCurentSong = pCurentSong->nextSong;
+    }
 }
 
 struct song * deleteFirstSong(){
@@ -48,6 +59,10 @@ void deletePlaylist(){
 }
 
 int main(){
-
+    //test current funtions
+    struct playlist *myPlaylist = initPlaylist();
+    addSong(myPlaylist, "Artist1", "Name1");
+    addSong(myPlaylist, "Artist2", "Name2");
+    printPlaylist(myPlaylist);
 
 }
