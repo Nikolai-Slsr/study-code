@@ -112,8 +112,10 @@ int deleteFirstSong(struct playlist *pPlaylist){ // returns 0 if success, 1 if f
     free(deletedSong);
     return 0;
     }
-void deletePlaylist(struct playlist **ppPlaylist){
-    if (ppPlaylist == NULL || *ppPlaylist == NULL) return;
+void deletePlaylist(struct playlist **ppPlaylist){ // returns 0 if success, 1 if failed
+    // uses double pointer to set the playlist pointer to NULL after freeing the memory of the playlist and its songs
+    // this avoids dangling pointers and allows the caller to check if the playlist has been deleted by checking if the pointer is NULL
+    if (ppPlaylist == NULL || *ppPlaylist == NULL) return; 
     while (deleteFirstSong(*ppPlaylist) == 0){}
     free(*ppPlaylist);
     *ppPlaylist = NULL;
