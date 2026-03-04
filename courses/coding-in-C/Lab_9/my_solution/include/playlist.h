@@ -32,5 +32,5 @@ void add_song(Playlist *playlist, const char *title, const char *artist);
 void print_playlist(const Playlist *playlist);
 void delete_firstSong(Playlist *playlist);
 void delete_playlist(Playlist *playlist);
-
+int count_songs_recursive(const Song *current);
 #endif /* PLAYLIST_H */

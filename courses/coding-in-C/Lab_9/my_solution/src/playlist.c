@@ -110,3 +110,13 @@ void delete_playlist(Playlist *playlist)
     while (playlist->p_head)
         delete_firstSong(playlist);
 }
+
+int count_songs_recursive(const Song *current)
+{
+    if (current == NULL)
+    {
+        return 0;
+    }
+
+    return 1 + count_songs_recursive(current->p_nextSong);
+}
