@@ -56,7 +56,7 @@ int main()
     while (true)
     {
         // if not a number or to large for int
-        if (!(std::cin >> age))
+        if (!(std::cin >> age)) // please do not use something like std::cin >> reinterpret_cast<unsigned int&>(age);
         {
             std::cout << "You did not enter a valid number. Please try again." << '\n';
             std::cin.clear();
