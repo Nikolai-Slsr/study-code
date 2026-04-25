@@ -188,7 +188,87 @@ To test the classes in main:
 
 2. Why is it important to call the base class constructor?
 
+---
 
+## 🟡 Section III: UML Review – Library Management System
+
+In this section you will analyze an existing UML class diagram and evaluate whether the object-oriented design is reasonable.
+
+Unlike previous tasks, you are **not creating a design from scratch**, but reviewing and improving an existing one.
+
+---
+
+### 🎯 Learning Goals
+
+In this task you will practice:
+
+- analyzing UML class diagrams
+- evaluating class relationships
+- identifying composition, aggregation, association, and inheritance
+- checking visibility and encapsulation
+- reasoning about object-oriented design decisions
+
+---
+
+### 📘 Scenario
+
+A library manages different types of books.  
+Members can borrow books, and librarians can register members.  
+Whenever a member borrows a book, a loan record is created.
+
+The system contains the following classes:
+
+- `Library`
+- `Book`
+- `PrintedBook`
+- `EBook`
+- `Member`
+- `Librarian`
+- `Loan`
+
+Use the provided UML class diagram:
+
+![Library UML](sectionIII_library_uml_review.svg)
+
+---
+
+### Task Part 1 – Understand the Diagram
+
+Analyze the UML diagram and answer:
+
+1. Which classes are modeled?
+2. Which attributes and methods are visible from outside the class?
+3. Which inheritance relationships are shown?
+4. Which composition, aggregation, or association relationships are shown?
+
+---
+
+### Task Part 2 – Evaluate the Design
+
+Decide which parts of the diagram represent good object-oriented design and which should be improved.
+
+Answer the following:
+
+1. Which relationships are modeled correctly? Explain why.
+2. Which relationships are questionable or incorrect? Explain why.
+3. Is inheritance used appropriately in all cases?
+4. Does the design preserve encapsulation?
+
+---
+
+### Task Part 3 – Improve the Diagram
+
+Create an improved UML class diagram.
+
+Your improved diagram should:
+
+- fix incorrect relationships
+- improve visibility where necessary
+- preserve meaningful inheritance
+- use composition, aggregation, and association appropriately
+- briefly justify your changes if not yet done in Part 2
+
+---
 
 ## 🔴 Section IV: Game Character System – Inheritance and Class Relationships
 
