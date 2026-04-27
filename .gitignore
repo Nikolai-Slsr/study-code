@@ -17,3 +17,10 @@ DocumentLayout.json
 build/
 obj/
 bin/
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+*.swp
+*.swo
