@@ -1,0 +1,18 @@
+www.cppreference.com
+4.8
+Everything you need to know about C++ and its Standard Library.
+www.stackoverflow.com
+4.2
+Helpful answers to your coding problems and developer discussions.
+www.github.com
+4.9
+Host and manage your code repositories, collaborate with others.
+www.badwebsite.com
+1.2
+Some random text that is not very helpful, lots of ads.
+www.wikipedia.org
+4.7
+The free encyclopedia where you can read about C++ history.
+www.dhbw.de
+4.5
+The official website of the DHBW university.

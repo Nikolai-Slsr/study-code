@@ -212,54 +212,54 @@ However, the implementation contains multiple conceptual, stylistic and technica
 #include <iostream>
 #include <string>
 #include <iomanip>
-using namespace std;
+using namespace std; //nicht so geil
 
 class Article {
 public:
-    string name;
+    string name; //should be propperly be private 
     double price;
     int stock;
     string* category;
     int id;
 
     Article(string name, double price, int stock, string category, int id) {
-        name = name;
-        price = price;
-        stock = stock;
-        this->id = id;
+        name = name; //should be this->name = name; 
+        price = price; //should be this->price = price;
+        stock = stock; //should be this->stock = stock;
+        this->id = id; //as sthis should be uniqe it would be wise to hcekc if the id already exists / genreate a unique one
         this->category = new string;
-        *this->category = category;
+        *this->category = category; // * ist falsch muss ein &vor category
     }
 
     void setPrice(double price) {
-        price = price;
+        price = price; //should be this->price = price;
     }
 
     void sell(int amount) {
-        stock = stock - amount;
+        stock = stock - amount; //check if stock is sufficient before selling
     }
 
     void restock(int amount) {
-        this->stock += amount;
+        this->stock += amount; //this is unnecessary, can be stock += amount; but is not wrong
     }
 
     double applyDiscount(double percent) {
-        price = price - price * percent / 100;
+        price = price - price * percent / 100; //missing check vor propper value
         return price;
     }
 
-    double getPrice() {
+    double getPrice() { //should be const
         return price;
     }
 
-    bool isAvailable() {
+    bool isAvailable() { //kann man kompakter schreiben
         if (stock > 0)
-            return true;
+            return true; //klammern fehlen
         else
             return false;
     }
 
-    void printInfo() {
+    void printInfo() { //relativ lange sollte man vielleicht ehr außerhalb definieren
         cout << "Article: " << name << endl;
         cout << "Category: " << *category << endl;
         cout << "Price: " << price << endl;
@@ -269,11 +269,11 @@ public:
 };
 
 int main() {
-    Article a("Laptop", 999.99, 10, "Electronics", 101);
+    Article a("Laptop", 999.99, 10, "Electronics", 101); //magic numbers überall
 
-    a.sell(15);
+    a.sell(15); 
     a.restock(-5);
-    a.price = -100;
+    a.price = -100; // dirrekter zugirff ist prblematisch
     a.applyDiscount(150);
 
     if (a.isAvailable()) cout << "Article available" << endl;
@@ -340,7 +340,7 @@ A cinema manages movies, customers, and tickets.
 - A ticket can be **validated** (used).
 - A customer can check whether they are a **VIP customer** (based on internal/hidden logic).
 - The total number of created tickets should be tracked.
-- The final ticket price depends on the movie price.
+- The final ticket price depends on the movie price. 
 
 
 ### Tasks
