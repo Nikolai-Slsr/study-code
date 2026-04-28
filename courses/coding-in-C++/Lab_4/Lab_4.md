@@ -87,7 +87,7 @@ Think carefully about:
 
 ---
 
-#### 🔹 Part 5 – Comparison Operators
+#### Part 5 – Comparison Operators
 
 Enable comparison between two vectors.
 
@@ -118,71 +118,43 @@ You will implement a simple class hierarchy for geometric shapes.
 
 ### 📘 Requirements
 
-#### 🔹 Part 1 – Base Class
+#### Part 1 – Base Class
 
 Create a base class that represents a general geometric shape.
 
 - The class should define a method that computes the area
 - This method should just return a default value (0.0)
 - Think about whether this function should be declared as virtual and why
+- Think about whether this class needs a destructor and if so, what kind of destructor
 
 ---
 
-#### 🔹 Part 2 – Derived Classes
+#### Part 2 – Derived Classes
 
-Create two derived classes:
+Create at least two specific shapes that inherit from your base class.
 
-```cpp
-class Circle : public Shape {
-private:
-    double radius;
+- Each shape should store the necessary attributes
+- Each shape should provide its own implementation of the area calculation
+- Make sure the function in the derived classes correctly overrides the base class function
+- Test all derived classes in the main function
+- Explain if and why the usage of overrides makes sense in this scenario
 
-public:
-    Circle(double r);
-    double area() const override;
-};
-```
-
-```cpp
-class Rectangle : public Shape {
-private:
-    double width, height;
-
-public:
-    Rectangle(double w, double h);
-    double area() const override;
-};
-```
-
-⚠️ Test both classes in `main`.
 
 ---
 
-#### 🔹 Part 3 – Polymorphism
+#### Part 3 – Polymorphism
 
-- Create a pointer of type `Shape*`
-- Assign it objects of `Circle` and `Rectangle`
-- Call `area()` via the pointer
-
-⚠️ Test this behavior in `main`.
+- Create an array of type `Shape*`
+- Assign it objects of your derived classes
+- Call the `area()` method of each obejct
+- What do you notice with respect to the called method?
 
 ---
 
-#### 🔹 Part 4 – Abstract Class
+#### Part 4 – Abstract Class
 
-Modify `Shape`:
-
-```cpp
-class Shape {
-public:
-    virtual double area() const = 0;
-};
-```
-
-- Explain what changes
-- Why can `Shape` no longer be instantiated?
-
-⚠️ Test usage in `main`.
+- Modify `Shape` by making it an abstract class
+- Explain what changes!
 
 ---
 
