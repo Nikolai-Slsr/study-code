@@ -237,9 +237,24 @@ Use the provided UML class diagram:
 Analyze the UML diagram and answer:
 
 1. Which classes are modeled?
+  - Library
+  - Member
+  - Librarian
+  - Loan
+  - Book
+  - Ebook
+  - Printed Book
 2. Which attributes and methods are visible from outside the class?
+  - All Methrods
+  - the atriubutes of Book
+  - the salary of the Librarian
 3. Which inheritance relationships are shown?
+  - EBooks and Printed Books are Books
+  - Librarian is a Member
 4. Which composition, aggregation, or association relationships are shown?
+  - Member are a aggregation of Library
+  - Books are a composition of the Library
+  - Book <composition> Loan
 
 ---
 
@@ -250,8 +265,12 @@ Decide which parts of the diagram represent good object-oriented design and whic
 Answer the following:
 
 1. Which relationships are modeled correctly? Explain why.
+ - Member - Library 
+ - 
 2. Which relationships are questionable or incorrect? Explain why.
+ - There is no reason why the Library should only have a maximum of a 1000 Books.
 3. Is inheritance used appropriately in all cases?
+ - Whther the Libraian should be a member is 
 4. Does the design preserve encapsulation?
 
 ---
