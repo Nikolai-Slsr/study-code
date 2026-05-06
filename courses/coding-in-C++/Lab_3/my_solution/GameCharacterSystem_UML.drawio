@@ -1,0 +1,219 @@
+<mxfile host="Electron" modified="2026-05-06T00:00:00.000Z" agent="draw.io" version="21.0.0">
+  <diagram name="Game Character System - Section IV" id="gcs-section-iv">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ==================== Character (base class) ==================== -->
+        <mxCell id="char" value="Character" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="50" width="270" height="278" as="geometry" />
+        </mxCell>
+        <mxCell id="char_r1" value="- hp : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="30" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_r2" value="# name : string" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="54" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_r3" value="# level : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="78" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_r4" value="# xp : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="102" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_r5" value="- &lt;u&gt;MAX_LEVEL : int = 10&lt;/u&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="126" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_r6" value="- &lt;u&gt;MIN_LEVEL : int = 1&lt;/u&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="150" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_sep" value="" style="line;strokeColor=#000000;fillColor=none;html=1;" vertex="1" parent="char">
+          <mxGeometry y="174" width="270" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="char_m1" value="+ getInventory() : Inventory&amp;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="182" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_m2" value="+ gainXP(in xp : int) : void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="206" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_m3" value="# levelUp() : void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="230" width="270" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="char_m4" value="+ showStatus() : void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="char">
+          <mxGeometry y="254" width="270" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Inventory ==================== -->
+        <mxCell id="inv" value="Inventory" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="80" width="250" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_r1" value="- items : vector&lt;string&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="30" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_r2" value="- maxSlots : int {readOnly}" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="54" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_sep" value="" style="line;strokeColor=#000000;fillColor=none;html=1;" vertex="1" parent="inv">
+          <mxGeometry y="78" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_m1" value="+ isEmpty() : bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="86" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_m2" value="+ isFull() : bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="110" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_m3" value="+ addItem(in item : string) : bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="134" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_m4" value="+ removeLastItem(out item : string) : bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="158" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_m5" value="+ getSize() : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="182" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_m6" value="+ getMaxSlots() : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="inv">
+          <mxGeometry y="206" width="250" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Weapon ==================== -->
+        <mxCell id="weap" value="Weapon" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="250" width="210" height="134" as="geometry" />
+        </mxCell>
+        <mxCell id="weap_r1" value="- name : string {readOnly}" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="weap">
+          <mxGeometry y="30" width="210" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="weap_r2" value="- damage : int {readOnly}" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="weap">
+          <mxGeometry y="54" width="210" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="weap_sep" value="" style="line;strokeColor=#000000;fillColor=none;html=1;" vertex="1" parent="weap">
+          <mxGeometry y="78" width="210" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="weap_m1" value="+ getName() : string" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="weap">
+          <mxGeometry y="86" width="210" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="weap_m2" value="+ getDamage() : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="weap">
+          <mxGeometry y="110" width="210" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Warrior ==================== -->
+        <mxCell id="warr" value="Warrior" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="470" width="250" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="warr_r1" value="- weaponSkillPoints : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="warr">
+          <mxGeometry y="30" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="warr_sep" value="" style="line;strokeColor=#000000;fillColor=none;html=1;" vertex="1" parent="warr">
+          <mxGeometry y="54" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="warr_m1" value="+ regenWeaponSkill() : void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="warr">
+          <mxGeometry y="62" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="warr_m2" value="+ showStatus() : void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="warr">
+          <mxGeometry y="86" width="250" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Mage ==================== -->
+        <mxCell id="mage" value="Mage" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="470" width="250" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="mage_r1" value="- manaPoints : int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mage">
+          <mxGeometry y="30" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="mage_sep" value="" style="line;strokeColor=#000000;fillColor=none;html=1;" vertex="1" parent="mage">
+          <mxGeometry y="54" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="mage_m1" value="+ regenMana() : void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mage">
+          <mxGeometry y="62" width="250" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="mage_m2" value="+ showStatus() : void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="mage">
+          <mxGeometry y="86" width="250" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Thief (extends Warrior) ==================== -->
+        <mxCell id="thief" value="Thief" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="710" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="thief_sep" value="" style="line;strokeColor=#000000;fillColor=none;html=1;" vertex="1" parent="thief">
+          <mxGeometry y="30" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="thief_m1" value="+ steal(target : Character&amp;) : Thief&amp;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="thief">
+          <mxGeometry y="38" width="300" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== Healer (extends Mage, friend of Character) ==================== -->
+        <mxCell id="heal" value="Healer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="710" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="heal_sep" value="" style="line;strokeColor=#000000;fillColor=none;html=1;" vertex="1" parent="heal">
+          <mxGeometry y="30" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="heal_m1" value="+ heal(target : Character&amp;) : Healer&amp;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="heal">
+          <mxGeometry y="38" width="300" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== CONNECTIONS ==================== -->
+
+        <!-- Composition: Character ◆—— Inventory (1:1) -->
+        <mxCell id="e_char_inv" value="" style="startArrow=diamondThin;startFill=1;endArrow=none;endFill=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="char" target="inv" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_char_inv_ls" value="1" style="resizable=0;html=1;align=right;verticalAlign=bottom;labelBackgroundColor=none;fontSize=11;" connectable="0" vertex="1" parent="e_char_inv">
+          <mxGeometry x="-0.85" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_char_inv_lt" value="1" style="resizable=0;html=1;align=left;verticalAlign=bottom;labelBackgroundColor=none;fontSize=11;" connectable="0" vertex="1" parent="e_char_inv">
+          <mxGeometry x="0.85" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Aggregation: Character ◇—— Weapon (0..1) -->
+        <mxCell id="e_char_weap" value="" style="startArrow=diamondThin;startFill=0;endArrow=none;endFill=0;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="char" target="weap" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_char_weap_ls" value="1" style="resizable=0;html=1;align=left;verticalAlign=bottom;labelBackgroundColor=none;fontSize=11;" connectable="0" vertex="1" parent="e_char_weap">
+          <mxGeometry x="-0.85" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_char_weap_lt" value="0..1" style="resizable=0;html=1;align=right;verticalAlign=bottom;labelBackgroundColor=none;fontSize=11;" connectable="0" vertex="1" parent="e_char_weap">
+          <mxGeometry x="0.85" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Inheritance: Warrior ——▷ Character -->
+        <mxCell id="e_warr_char" value="" style="endArrow=block;endFill=0;endSize=16;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.2;entryY=1;entryDx=0;entryDy=0;" edge="1" source="warr" target="char" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Inheritance: Mage ——▷ Character -->
+        <mxCell id="e_mage_char" value="" style="endArrow=block;endFill=0;endSize=16;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.8;entryY=1;entryDx=0;entryDy=0;" edge="1" source="mage" target="char" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Inheritance: Thief ——▷ Warrior -->
+        <mxCell id="e_thief_warr" value="" style="endArrow=block;endFill=0;endSize=16;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" source="thief" target="warr" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Inheritance: Healer ——▷ Mage -->
+        <mxCell id="e_heal_mage" value="" style="endArrow=block;endFill=0;endSize=16;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" source="heal" target="mage" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Friend dependency: Healer - - «friend» - -> Character (routed right side) -->
+        <mxCell id="e_heal_char_friend" value="«friend»" style="dashed=1;endArrow=open;endFill=0;endSize=8;startArrow=none;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="heal" target="char" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="721" />
+              <mxPoint x="900" y="189" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ==================== RELATIONSHIP NOTES ==================== -->
+        <mxCell id="note_title" value="&lt;b&gt;Relationship Decisions&lt;/b&gt;" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;whiteSpace=wrap;overflow=hidden;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="20" y="840" width="940" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="note_body" value="&lt;b&gt;Composition ◆ — Character → Inventory (1:1):&lt;/b&gt; Inventory is exclusively owned by Character and cannot exist independently. It is created and destroyed with its Character.&lt;br&gt;&lt;b&gt;Aggregation ◇ — Character → Weapon (0..1):&lt;/b&gt; A Weapon can exist independently (e.g., dropped on the ground). A Character equips 0 or 1 Weapons at a time.&lt;br&gt;&lt;b&gt;Inheritance — Warrior / Mage → Character:&lt;/b&gt; Both are specializations of Character, reusing hp, name, level, xp and the gainXP / levelUp logic.&lt;br&gt;&lt;b&gt;Inheritance — Thief → Warrior, Healer → Mage:&lt;/b&gt; Job classes extend their base character type with a unique skill method (steal / heal). Method chaining is enabled via the &lt;i&gt;return *this&lt;/i&gt; pattern.&lt;br&gt;&lt;b&gt;«friend» — Healer → Character:&lt;/b&gt; Healer must modify private hp without a public setter. C++ &lt;i&gt;friend&lt;/i&gt; grants Healer controlled, targeted access while preserving encapsulation for all other classes.&lt;br&gt;&lt;b&gt;Static attributes (underlined):&lt;/b&gt; MAX_LEVEL and MIN_LEVEL are class-level constants shared across all instances." style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;spacingRight=8;spacingTop=6;whiteSpace=wrap;overflow=hidden;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="20" y="864" width="940" height="156" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
